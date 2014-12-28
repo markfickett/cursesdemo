@@ -33,13 +33,12 @@ def DrawSine(window):
     window.refresh()
 
 
+def Main(window):
+  DrawCoords(window)
+  window.getch()  # Block until any key press.
+  curses.beep()
+  DrawSine(window)
+
+
 if __name__ == '__main__':
-  window = curses.initscr()
-  try:
-    DrawCoords(window)
-    window.getch()  # Block until any key press.
-    curses.beep()
-    DrawSine(window)
-  except KeyboardInterrupt:
-    pass
-  curses.endwin()
+  curses.wrapper(Main)
