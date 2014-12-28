@@ -8,10 +8,26 @@ import math
 import time
 
 
+_ALL_COLORS = (
+    curses.COLOR_BLACK,
+    curses.COLOR_RED,
+    curses.COLOR_GREEN,
+    curses.COLOR_YELLOW,
+    curses.COLOR_BLUE,
+    curses.COLOR_MAGENTA,
+    curses.COLOR_CYAN,
+    curses.COLOR_WHITE,
+)
+
+
 def DrawCoords(window):
   window.border()
   for i in range(10):
-    window.addstr(i, 2*i, '(%d, %d)' % (2*i, i))
+    curses.init_pair(
+        i + 1,
+        _ALL_COLORS[i % len(_ALL_COLORS)],
+        _ALL_COLORS[(i + 1) % len(_ALL_COLORS)])
+    window.addstr(i, 2*i, '(%d, %d)' % (2*i, i), curses.color_pair(i + 1))
 
   h, w = window.getmaxyx()
   coord_str = '(%d, %d)' % (w - 1, h - 1)
