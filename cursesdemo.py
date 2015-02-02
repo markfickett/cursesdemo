@@ -4,6 +4,7 @@ The coordinate system (like many screen spaces) is in the upper left.
 """
 
 import curses
+import locale
 import math
 import time
 
@@ -33,6 +34,9 @@ def DrawCoords(window):
   coord_str = '(%d, %d)' % (w - 1, h - 1)
   window.addstr(h - 1, w - (len(coord_str) + 1), coord_str)
 
+  window.addstr(h/2 - 1, w/2, u'\xa2'.encode('utf-8'))  # cent sign
+  window.addstr(h/2, w/2, u'\u2603'.encode('utf-8'))  # snowman
+
   window.refresh()
 
 
@@ -57,4 +61,5 @@ def Main(window):
 
 
 if __name__ == '__main__':
+  locale.setlocale(locale.LC_ALL, '')
   curses.wrapper(Main)
